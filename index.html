@@ -53,23 +53,27 @@
   /* Reduce potential scroll jank for interactive areas */
   body * { touch-action: manipulation; }
 </style>
-<style>
-  <div class="only-desktop">…HTML5-версия…</div>
-<video class="only-mobile" playsinline controls preload="metadata" src="./Sales-Genius.mp4"></video>
 
 <style>
+  /* Mobile/desktop switcher */
   .only-mobile{display:none}
-  @media (max-width:768px){ .only-desktop{display:none} .only-mobile{display:block} }
+  @media (max-width:768px){
+    .only-desktop{display:none !important}
+    .only-mobile{display:block !important}
+    /* Hide Visme root on mobile just in case */
+    #root{display:none !important}
+  }
 </style>
-
-    
-
 </head>
   <body data-c="" style="
           background-color: #1d222f;
       " class="player">
-    <div id="root"
+    <div class="only-desktop">
+<div id="root"
             ><!-- --></div>
+<video class="only-mobile" playsinline controls preload="metadata" src="./Sales-Genius.mp4" style="width:100%;height:auto;display:block;margin:0 auto;max-width:1200px;"></video>
+
+</div>
 
     
 <script>
