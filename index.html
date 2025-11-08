@@ -1045,9 +1045,31 @@ body.flappy-open{ overflow:hidden; }
 
 </style>
 
+<style>
+<style>
+
+*, *::before, *::after{
+  -webkit-user-select: none !important;
+          user-select: none !important;
+  -webkit-touch-callout: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
 
 
+input, textarea, select, [contenteditable], .selectable, .allow-select{
+  -webkit-user-select: text !important;
+          user-select: text !important;
+  -webkit-touch-callout: default !important;
+}
 
+
+canvas, .game, .no-gesture { touch-action: none; }
+
+
+.sheet{ z-index: 12000 !important; }
+</style>
+
+</style>
 
 </head>
 <body>
@@ -1066,7 +1088,7 @@ body.flappy-open{ overflow:hidden; }
     <main>
 
 
-<!-- ТОСТ Окошко поп апп всплывающее -->
+
 <div id="toasts" class="toasts" aria-live="polite"></div>
 
 
@@ -3160,6 +3182,32 @@ claim?.addEventListener('click', () => {
   };
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const ALLOW = 'input, textarea, select, [contenteditable], .selectable, .allow-select';
+
+  
+  document.addEventListener('selectstart', (e) => {
+    if (e.target.closest(ALLOW)) return;
+    e.preventDefault();
+  }, { passive:false });
+
+  
+  document.addEventListener('contextmenu', (e) => {
+    if (e.target.closest(ALLOW)) return;
+    e.preventDefault();
+  }, { passive:false });
+
+  
+  document.addEventListener('selectionchange', () => {
+    const activeOk = document.activeElement && document.activeElement.matches(ALLOW);
+    if (!activeOk) {
+      const sel = window.getSelection && window.getSelection();
+      if (sel && sel.rangeCount) sel.removeAllRanges();
+    }
+  });
+});
+</script>
 
 
 
